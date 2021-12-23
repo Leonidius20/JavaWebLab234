@@ -6,8 +6,8 @@
     <!--<servlet>
         <servlet-name>Hello</servlet-name>
 
-        <display-name>io.github.leonidius20.java_web_lab_234.presentation.HelloServlet</display-name>
-        <servlet-class>io.github.leonidius20.java_web_lab_234.presentation.HelloServlet</servlet-class>
+        <display-name>io.github.leonidius20.java_web_lab_234.presentation.books_search.BooksSearchServlet</display-name>
+        <servlet-class>io.github.leonidius20.java_web_lab_234.presentation.books_search.BooksSearchServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -15,5 +15,11 @@
         <url-pattern>/sruk</url-pattern>
     </servlet-mapping>-->
 
+    <resource-ref>
+        <description>postgreSQL Datasource</description>
+        <res-ref-name>jdbc/postgres</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+    </resource-ref>
 
 </web-app>

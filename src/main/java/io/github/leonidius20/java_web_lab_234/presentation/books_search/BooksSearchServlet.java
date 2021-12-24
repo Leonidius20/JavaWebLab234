@@ -10,7 +10,7 @@ import jakarta.servlet.annotation.*;
 import javax.sql.DataSource;
 
 // servlet is a controller in mvc terms
-@WebServlet(name = "helloServlet", value = "/hello-servlet")
+@WebServlet(name = "helloServlet", value = "/")
 public class BooksSearchServlet extends HttpServlet {
 
     private BooksSearchModelImpl model;
@@ -25,10 +25,10 @@ public class BooksSearchServlet extends HttpServlet {
         try {
             var books = model.getAll();
             request.setAttribute("books", books);
-            getServletContext().getRequestDispatcher("books_catalog.jsp").forward(request, response);
+            getServletContext().getRequestDispatcher("/books_catalog.jsp").forward(request, response);
         } catch (SQLException | ServletException e) {
             e.printStackTrace();
-            response.sendRedirect("error.jsp");
+            response.sendRedirect("/error.jsp");
         }
     }
 

@@ -1,5 +1,7 @@
 package io.github.leonidius20.java_web_lab_234.data;
 
+import io.github.leonidius20.java_web_lab_234.domain.Book;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -3,6 +3,7 @@ package io.github.leonidius20.java_web_lab_234.presentation.books_search;
 import java.io.*;
 import java.sql.SQLException;
 
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
@@ -21,22 +22,14 @@ public class BooksSearchServlet extends HttpServlet {
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.setContentType("text/html");
-
-        PrintWriter out = response.getWriter();
-        out.println("<html><body>");
-
         try {
             var books = model.getAll();
-            for (var book: books) {
-                out.println("<ul>" + book.name() + "</ul>");
-            }
-        } catch (SQLException e) {
+            request.setAttribute("books", books);
+            getServletContext().getRequestDispatcher("books_catalog.jsp").forward(request, response);
+        } catch (SQLException | ServletException e) {
             e.printStackTrace();
+            response.sendRedirect("error.jsp");
         }
-
-        out.println("<h1>" + "g" + "</h1>");
-        out.println("</body></html>");
     }
 
     public void destroy() {

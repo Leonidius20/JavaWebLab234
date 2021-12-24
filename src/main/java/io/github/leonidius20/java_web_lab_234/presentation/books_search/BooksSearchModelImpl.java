@@ -1,6 +1,6 @@
 package io.github.leonidius20.java_web_lab_234.presentation.books_search;
 
-import io.github.leonidius20.java_web_lab_234.data.Book;
+import io.github.leonidius20.java_web_lab_234.domain.Book;
 import io.github.leonidius20.java_web_lab_234.data.BookDao;
 import io.github.leonidius20.java_web_lab_234.data.DatabaseConnection;
 

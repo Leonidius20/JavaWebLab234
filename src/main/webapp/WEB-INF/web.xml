@@ -4,6 +4,15 @@
     version="5.0">
 
     <!--<servlet>
+        <servlet-name>registration</servlet-name>
+        <jsp-file>/jsp/registration.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>registration</servlet-name>
+        <url-pattern>/registration</url-pattern>
+    </servlet-mapping>-->
+
+    <!--<servlet>
         <servlet-name>Hello</servlet-name>
 
         <display-name>io.github.leonidius20.java_web_lab_234.presentation.books_search.BooksSearchServlet</display-name>
@@ -15,11 +24,27 @@
         <url-pattern>/sruk</url-pattern>
     </servlet-mapping>-->
 
+    <filter>
+        <filter-name>AuthFilter</filter-name>
+        <filter-class>
+            io.github.leonidius20.java_web_lab_234.presentation.AuthFilter
+        </filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AuthFilter</filter-name>
+        <servlet-name>my_account_servlet</servlet-name>
+    </filter-mapping>
+
     <resource-ref>
         <description>postgreSQL Datasource</description>
         <res-ref-name>jdbc/postgres</res-ref-name>
         <res-type>javax.sql.DataSource</res-type>
         <res-auth>Container</res-auth>
     </resource-ref>
+
+    <!--<context-param>
+        <param-name>log4j-config-location</param-name>
+        <param-value>WEB-INF/log4j.properties</param-value>
+    </context-param>-->
 
 </web-app>

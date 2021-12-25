@@ -1,17 +1,23 @@
 package io.github.leonidius20.java_web_lab_234.presentation.registration;
 
 import io.github.leonidius20.java_web_lab_234.dao.UserDao;
+import io.github.leonidius20.java_web_lab_234.dao.UserDaoImpl;
 import io.github.leonidius20.java_web_lab_234.data.DatabaseConnection;
 import io.github.leonidius20.java_web_lab_234.domain.User;
 import io.github.leonidius20.java_web_lab_234.utils.Cryptography;
 
-import javax.sql.DataSource;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
 public class RegistrationModelImpl {
 
-    private final DataSource connection = DatabaseConnection.get();
+    private final UserDao dao;
+
+    public RegistrationModelImpl() throws SQLException {
+        dao = new UserDaoImpl(DatabaseConnection.get().getConnection());
+    }
+
+    public RegistrationModelImpl(UserDao dao) { this.dao = dao; }
 
     /**
      * @return created user or null if failed
@@ -24,7 +30,6 @@ public class RegistrationModelImpl {
 
         var user = new User(-1, name, passportNum, role, false, passwordHash, salt);
 
-        var dao = new UserDao(connection.getConnection());
         int id = dao.insertUser(user);
 
         if (id == -1) return null;

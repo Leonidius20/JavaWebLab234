@@ -1,4 +1,4 @@
-package io.github.leonidius20.java_web_lab_234.presentation.my_account;
+package io.github.leonidius20.java_web_lab_234.presentation;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -8,13 +8,12 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name = "my_account_servlet", value = "/account")
-public class MyAccountServlet extends HttpServlet {
+@WebServlet(name = "logout_servlet", value = "/logout")
+public class LogoutServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        var user = req.getSession(true).getAttribute("user");
-        getServletContext().getRequestDispatcher("/jsp/account.jsp").forward(req, resp);
+        req.getSession(true).setAttribute("user", null);
+        resp.sendRedirect(req.getContextPath());
     }
-
 }

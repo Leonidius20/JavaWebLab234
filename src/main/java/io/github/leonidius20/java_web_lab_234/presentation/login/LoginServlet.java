@@ -1,6 +1,5 @@
 package io.github.leonidius20.java_web_lab_234.presentation.login;
 
-import io.github.leonidius20.java_web_lab_234.domain.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -8,9 +7,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.net.http.HttpResponse;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @WebServlet(name = "login_servlet", value = "/login")
 public class LoginServlet extends HttpServlet {
@@ -19,7 +19,12 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        model = new LoginModelImpl();
+        try {
+            model = new LoginModelImpl();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new ServletException("LoginServlet: Could not initialize model");
+        }
     }
 
     @Override
@@ -45,11 +50,12 @@ public class LoginServlet extends HttpServlet {
             var user = model.getUserWithCredentials(name, password);
 
             if (user == null) {
-
                 showErrorPage("Wrong credentials", 403, req, resp);
+                Logger.getLogger("Auth").log(Level.INFO, "Someone failed to log in as " + name);
             } else {
                 req.getSession(true).setAttribute("user", user);
                 resp.sendRedirect(req.getContextPath());
+                Logger.getLogger("Auth").log(Level.INFO, "User logged in as " + name);
             }
 
         } catch (SQLException | NoSuchAlgorithmException e) {

@@ -22,6 +22,10 @@
     </thead>
     <tbody>
 
+    <c:if test="${ sessionScope.user != null && sessionScope.user.role() == 'ADMIN' }">
+        <a href="${pageContext.request.contextPath}/add-book" class="btn btn-primary" role="button">Add book</a>
+    </c:if>
+
     <c:forEach var="book" items="${ books }">
 
         <tr>

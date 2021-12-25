@@ -1,7 +1,6 @@
 package io.github.leonidius20.java_web_lab_234.dao;
 
 import io.github.leonidius20.java_web_lab_234.domain.Book;
-import io.github.leonidius20.java_web_lab_234.domain.Publisher;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -17,6 +16,8 @@ public class BookDao extends BaseDao<Book> {
 
     private static final String SELECT_BY_ID =
             SELECT_ALL + " where id = ?";
+
+    private static final String DELETE_BY_ID = "delete from books where id = ?";
 
     public BookDao(Connection connection) {
         this.connection = connection;
@@ -64,6 +65,12 @@ public class BookDao extends BaseDao<Book> {
                     resultSet.getInt("edition")
             );
         } else return null;
+    }
+
+    public void deleteById(int id) throws SQLException {
+        var statement = connection.prepareStatement(DELETE_BY_ID);
+        statement.setInt(1, id);
+        statement.executeUpdate();
     }
 
     public enum OrderBy  {

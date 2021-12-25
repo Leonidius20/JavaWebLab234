@@ -17,7 +17,12 @@ public class RegistrationServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        model = new RegistrationModelImpl();
+        try {
+            model = new RegistrationModelImpl();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new ServletException("RegistrationServlet: Could not create model");
+        }
     }
 
     @Override

@@ -23,9 +23,9 @@ public class BookDao extends BaseDao<Book> {
     }
 
     // @Override
-    public List<Book> findAll() throws SQLException {
+    public List<Book> findAll(OrderBy orderBy) throws SQLException {
         Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery(SELECT_ALL);
+        ResultSet resultSet = statement.executeQuery(SELECT_ALL + orderBy.getSqlOrderBy());
         List<Book> list = new LinkedList<>();
 
         while (resultSet.next()) {
@@ -37,7 +37,8 @@ public class BookDao extends BaseDao<Book> {
                     resultSet.getInt("year"),
                     resultSet.getInt("num_of_copies"),
                     resultSet.getString("publisher_name"),
-                    resultSet.getString("author_name")
+                    resultSet.getString("author_name"),
+                    resultSet.getInt("edition")
             );
             list.add(book);
         }
@@ -59,9 +60,29 @@ public class BookDao extends BaseDao<Book> {
                     resultSet.getInt("year"),
                     resultSet.getInt("num_of_copies"),
                     resultSet.getString("publisher_name"),
-                    resultSet.getString("author_name")
+                    resultSet.getString("author_name"),
+                    resultSet.getInt("edition")
             );
         } else return null;
+    }
+
+    public enum OrderBy  {
+
+        NAME(" order by name"),
+        AUTHOR(" order by author_name"),
+        PUBLISHER(" order by publisher_name"),
+        EDITION(" order by edition"),
+        YEAR(" order by year");
+
+        private final String sqlOrderBy;
+
+        OrderBy(String sqlOrderBy) {
+            this.sqlOrderBy = sqlOrderBy;
+        }
+
+        public String getSqlOrderBy() {
+            return sqlOrderBy;
+        }
     }
 
 }

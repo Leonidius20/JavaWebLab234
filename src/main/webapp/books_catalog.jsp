@@ -12,10 +12,11 @@
 <table class="table table-bordered">
     <thead>
     <tr>
-        <th>Name</th>
-        <th>Author</th>
-        <th>Publisher</th>
-        <th>Year</th>
+        <th><a href="${pageContext.request.contextPath}?sortBy=name">Name</a></th>
+        <th><a href="${pageContext.request.contextPath}?sortBy=author">Author</a></th>
+        <th><a href="${pageContext.request.contextPath}?sortBy=publisher">Publisher</a></th>
+        <th><a href="${pageContext.request.contextPath}?sortBy=edition">Edition</a></th>
+        <th><a href="${pageContext.request.contextPath}?sortBy=year">Year</a></th>
         <th>Number of copies</th>
     </tr>
     </thead>
@@ -34,6 +35,10 @@
             <td>
 
                 <c:out value="${book.publisherName()}" />
+            </td>
+            <td>
+
+                <c:out value="${book.edition()}" />
             </td>
             <td>
 

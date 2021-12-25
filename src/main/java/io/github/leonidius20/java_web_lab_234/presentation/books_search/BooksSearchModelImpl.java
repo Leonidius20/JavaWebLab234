@@ -13,9 +13,10 @@ public class BooksSearchModelImpl {
 
     private final DataSource connection = DatabaseConnection.get();
 
-    public List<Book> getAll() throws SQLException {
+    public List<Book> getAll(String orderByString) throws SQLException {
         BookDao dao = new BookDao(connection.getConnection());
-        return dao.findAll();
+        var orderBy = BookDao.OrderBy.valueOf(orderByString.toUpperCase());
+        return dao.findAll(orderBy);
     }
 
     public void close() {

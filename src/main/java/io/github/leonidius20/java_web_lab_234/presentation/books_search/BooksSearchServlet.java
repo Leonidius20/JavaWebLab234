@@ -23,7 +23,11 @@ public class BooksSearchServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
-            var books = model.getAll();
+            String sortBy = "name";
+            if (request.getParameterMap().containsKey("sortBy")) {
+                sortBy = request.getParameter("sortBy");
+            }
+            var books = model.getAll(sortBy);
             request.setAttribute("books", books);
             getServletContext().getRequestDispatcher("/books_catalog.jsp").forward(request, response);
         } catch (SQLException | ServletException e) {

@@ -14,7 +14,6 @@
     <tr>
         <th><a href="${pageContext.request.contextPath}?sortBy=name">Name</a></th>
         <th><a href="${pageContext.request.contextPath}?sortBy=author">Author</a></th>
-        <th><a href="${pageContext.request.contextPath}?sortBy=publisher">Publisher</a></th>
         <th><a href="${pageContext.request.contextPath}?sortBy=edition">Edition</a></th>
         <th><a href="${pageContext.request.contextPath}?sortBy=year">Year</a></th>
         <th>Number of copies</th>
@@ -23,7 +22,7 @@
     <tbody>
 
     <c:if test="${ sessionScope.user != null && sessionScope.user.role() == 'ADMIN' }">
-        <a href="${pageContext.request.contextPath}/add-book" class="btn btn-primary" role="button">Add book</a>
+        <a href="${pageContext.request.contextPath}/edit-book" class="btn btn-primary" role="button">Add book</a>
     </c:if>
 
     <c:forEach var="book" items="${ books }">
@@ -35,10 +34,6 @@
             <td>
 
                 <c:out value="${book.authorName()}" />
-            </td>
-            <td>
-
-                <c:out value="${book.publisherName()}" />
             </td>
             <td>
 

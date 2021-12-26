@@ -12,7 +12,6 @@
     <div class="container">
         <h1>${ book.name() }</h1>
         Author: ${book.authorName() }<br>
-        Publisher: ${book.publisherName() }<br>
         Year: ${book.year() }<br>
         Total number of copies: ${ book.numberOfCopies() }
 

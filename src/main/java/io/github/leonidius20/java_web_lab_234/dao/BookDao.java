@@ -12,12 +12,18 @@ import java.util.List;
 public class BookDao extends BaseDao<Book> {
 
     private static final String SELECT_ALL =
-            "select * from books join publishers on books.publisher = publishers.publisher_id join book_authors on books.author = book_authors.author_id";
+            "select * from books";
 
     private static final String SELECT_BY_ID =
             SELECT_ALL + " where id = ?";
 
     private static final String DELETE_BY_ID = "delete from books where id = ?";
+
+    private static final String UPDATE =
+            "update books set name = ?, author_name = ?, year = ?, edition = ?, num_of_copies = ? where id = ?";
+
+    private static final String INSERT =
+            "insert into books (name, author_name, year, edition, num_of_copies) values (?, ?, ?, ?, ?)";
 
     public BookDao(Connection connection) {
         this.connection = connection;
@@ -33,11 +39,8 @@ public class BookDao extends BaseDao<Book> {
             var book = new Book(
                     resultSet.getInt("id"),
                     resultSet.getString("name"),
-                    resultSet.getInt("author"),
-                    resultSet.getInt("publisher"),
                     resultSet.getInt("year"),
                     resultSet.getInt("num_of_copies"),
-                    resultSet.getString("publisher_name"),
                     resultSet.getString("author_name"),
                     resultSet.getInt("edition")
             );
@@ -56,11 +59,8 @@ public class BookDao extends BaseDao<Book> {
             return new Book(
                     resultSet.getInt("id"),
                     resultSet.getString("name"),
-                    resultSet.getInt("author"),
-                    resultSet.getInt("publisher"),
                     resultSet.getInt("year"),
                     resultSet.getInt("num_of_copies"),
-                    resultSet.getString("publisher_name"),
                     resultSet.getString("author_name"),
                     resultSet.getInt("edition")
             );
@@ -73,11 +73,42 @@ public class BookDao extends BaseDao<Book> {
         statement.executeUpdate();
     }
 
+    public boolean updateBook(Book book) throws SQLException {
+        var statement = connection.prepareStatement(UPDATE);
+        statement.setString(1, book.name());
+        statement.setString(2, book.authorName());
+        statement.setInt(3, book.year());
+        statement.setInt(4, book.edition());
+        statement.setInt(5, book.numberOfCopies());
+        statement.setInt(6, book.id());
+
+        int affectedRows = statement.executeUpdate();
+        return affectedRows != 0;
+    }
+
+    public int createBook(Book book) throws SQLException {
+        var statement = connection.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
+        statement.setString(1, book.name());
+        statement.setString(2, book.authorName());
+        statement.setInt(3, book.year());
+        statement.setInt(4, book.edition());
+        statement.setInt(5, book.numberOfCopies());
+
+        int affectedRows = statement.executeUpdate();
+        if (affectedRows == 0) return -1;
+
+
+        int id = -1;
+        var generatedKeys = statement.getGeneratedKeys();
+        if (generatedKeys.next()) id = generatedKeys.getInt(1);
+        return id;
+    }
+
+
     public enum OrderBy  {
 
         NAME(" order by name"),
         AUTHOR(" order by author_name"),
-        PUBLISHER(" order by publisher_name"),
         EDITION(" order by edition"),
         YEAR(" order by year");
 

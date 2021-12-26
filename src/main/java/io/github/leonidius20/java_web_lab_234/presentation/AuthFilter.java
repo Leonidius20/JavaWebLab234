@@ -27,10 +27,10 @@ public class AuthFilter implements Filter {
 
         var httpResponse = ((HttpServletResponse)response);
 
-        if (user == null) {
+        if (user == null && level == null) {
             httpResponse.sendRedirect(httpRequest.getContextPath() + "/login");
         } else {
-            if (level != null && ((User)user).role() != level) {
+            if (user == null || (level != null && ((User)user).role() != level)) {
                 httpResponse.setStatus(403);
                 httpResponse.sendRedirect(httpRequest.getContextPath());
             } else

@@ -1,4 +1,4 @@
-package io.github.leonidius20.java_web_lab_234.presentation;
+package io.github.leonidius20.java_web_lab_234.presentation.logout;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

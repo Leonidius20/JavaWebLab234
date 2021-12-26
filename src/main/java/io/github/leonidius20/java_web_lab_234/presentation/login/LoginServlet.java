@@ -53,6 +53,11 @@ public class LoginServlet extends HttpServlet {
                 showErrorPage("Wrong credentials", 403, req, resp);
                 Logger.getLogger("Auth").log(Level.INFO, "Someone failed to log in as " + name);
             } else {
+                if (user.isBanned()) {
+                    showErrorPage("You are banned", 403, req, resp);
+                    return;
+                }
+
                 req.getSession(true).setAttribute("user", user);
                 resp.sendRedirect(req.getContextPath());
                 Logger.getLogger("Auth").log(Level.INFO, "User logged in as " + name);

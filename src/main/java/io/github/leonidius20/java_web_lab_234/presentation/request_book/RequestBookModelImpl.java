@@ -5,8 +5,8 @@ import io.github.leonidius20.java_web_lab_234.dao.BookRequestDaoImpl;
 import io.github.leonidius20.java_web_lab_234.data.DatabaseConnection;
 import io.github.leonidius20.java_web_lab_234.domain.BookRequest;
 
-import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 public class RequestBookModelImpl {
 
@@ -25,8 +25,8 @@ public class RequestBookModelImpl {
     public void requestBook(int userId, int bookId, String borrowingTypeString, String desiredDateStr, String endDateStr) throws SQLException {
         var borrowingType = BookRequest.BorrowingType.valueOf(borrowingTypeString.toUpperCase());
 
-        var desiredDate = Date.valueOf(desiredDateStr);
-        var endDate = Date.valueOf(endDateStr);
+        var desiredDate = LocalDate.parse(desiredDateStr);
+        var endDate = LocalDate.parse(endDateStr);
 
         dao.createRequest(new BookRequest(
                 -1, userId, bookId, "", borrowingType, desiredDate, endDate, BookRequest.Status.PENDING

@@ -1,10 +1,10 @@
 package io.github.leonidius20.java_web_lab_234.domain;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 public record BookRequest(
         int id, int userId, int bookId, String bookName,
-        BorrowingType borrowingType, Date desiredDate, Date endDate, Status status
+        BorrowingType borrowingType, LocalDate desiredDate, LocalDate endDate, Status status
 ) {
 
     public enum BorrowingType {

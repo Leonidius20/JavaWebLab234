@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="java.util.concurrent.TimeUnit" %>
-<jsp:useBean id="now" class="java.util.Date" />
+<%@ page import="java.time.temporal.ChronoUnit" %>
+<%@ page import="java.time.LocalDate" %>
 <html>
 <head>
     <title>My account</title>
@@ -35,7 +35,7 @@
                             End date: ${request.endDate()}<br>
                             Status: ${request.status()}<br>
                             <c:if test="${request.status() == 'TAKEN'}">
-                                <c:set var="days_remaining" value="${TimeUnit.DAYS.convert(request.endDate().getTime() - now.getTime(), TimeUnit.MILLISECONDS)}"/>
+                                <c:set var="days_remaining" value="${ChronoUnit.DAYS.between(LocalDate.now(), request.endDate())}"/>
                                 <c:if test="${days_remaining >= 0}">
                                     Days remaining: ${days_remaining}<br>
                                 </c:if>

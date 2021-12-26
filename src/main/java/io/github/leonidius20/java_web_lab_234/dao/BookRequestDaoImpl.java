@@ -5,6 +5,7 @@ import io.github.leonidius20.java_web_lab_234.domain.BookRequest;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -38,8 +39,8 @@ public class BookRequestDaoImpl extends BaseDao<BookRequest> implements BookRequ
                     resultSet.getInt("book"),
                     resultSet.getString("name"),
                     BookRequest.BorrowingType.fromId(resultSet.getInt("borrowing_type")),
-                    resultSet.getDate("desired_date"),
-                    resultSet.getDate("end_date"),
+                    resultSet.getObject("desired_date", LocalDate.class),
+                    resultSet.getObject("end_date", LocalDate.class),
                     BookRequest.Status.fromId(resultSet.getInt("status"))
             );
             list.add(request);
@@ -53,8 +54,8 @@ public class BookRequestDaoImpl extends BaseDao<BookRequest> implements BookRequ
         statement.setInt(1, request.userId());
         statement.setInt(2, request.bookId());
         statement.setInt(3, request.borrowingType().getId());
-        statement.setDate(4, request.desiredDate());
-        statement.setDate(5, request.endDate());
+        statement.setObject(4, request.desiredDate());
+        statement.setObject(5, request.endDate());
         statement.setInt(6, request.status().getId());
 
         int affectedRows = statement.executeUpdate();

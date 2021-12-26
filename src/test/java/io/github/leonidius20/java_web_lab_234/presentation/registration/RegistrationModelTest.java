@@ -14,8 +14,6 @@ import static org.mockito.Mockito.*;
 
 public class RegistrationModelTest {
 
-    private String goodName = "good";
-    private String badName = "bad";
     private final UserDao mockedDao;
     private final RegistrationModelImpl model;
 

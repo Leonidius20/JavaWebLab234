@@ -47,14 +47,19 @@ public class RegistrationServlet extends HttpServlet {
         }
 
         try {
-            var user = model.createUser(name, passportNum, "user", password);
+            var createLibrarian = req.getAttribute("createLibrarian");
+            var role = (createLibrarian != null && (Boolean)createLibrarian)
+                    ? "librarian" : "user";
+
+            var user = model.createUser(name, passportNum, role, password);
             if (user == null) {
                 resp.setStatus(409); // conflict
                 showErrorPage("This username is taken. Please choose a different one.", req, resp);
                 return;
             }
 
-            req.getSession(true).setAttribute("user", user);
+            if (!role.equalsIgnoreCase("librarian"))
+                req.getSession(true).setAttribute("user", user);
             resp.sendRedirect(req.getContextPath());
         } catch (SQLException | NoSuchAlgorithmException e) {
             resp.setStatus(500);

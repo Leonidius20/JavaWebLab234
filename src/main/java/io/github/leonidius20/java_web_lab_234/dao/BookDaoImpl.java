@@ -12,7 +12,7 @@ import java.util.List;
 public class BookDaoImpl extends BaseDao<Book> implements BookDao{
 
     private static final String SELECT_ALL =
-            "select * from books";
+            "select * from books left join (select book, count(*) as \"taken_copies\" from book_requests group by book_requests.book) sub on books.id = sub.book";
 
     private static final String SELECT_BY_ID =
             SELECT_ALL + " where id = ?";
@@ -111,7 +111,8 @@ public class BookDaoImpl extends BaseDao<Book> implements BookDao{
                 resultSet.getInt("year"),
                 resultSet.getInt("num_of_copies"),
                 resultSet.getString("author_name"),
-                resultSet.getInt("edition")
+                resultSet.getInt("edition"),
+                resultSet.getInt("num_of_copies") - resultSet.getInt("taken_copies")
         );
     }
 

@@ -6,4 +6,5 @@ public record Book(
         int year,
         int numberOfCopies,
         String authorName,
-        int edition) { }
+        int edition,
+        int numberOfAvailableCopies) { }

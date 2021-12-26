@@ -45,6 +45,11 @@ public class RequestBookServlet extends HttpServlet {
                 return;
             }
 
+            if (!model.hasAvailableCopies(bookId)) {
+                ErrorPage.show("There are no available copies of this book", 200, req, resp, getServletContext());
+                return;
+            }
+
             var borrowingTypeString = req.getParameter("borrowing_type");
             var desiredDate = req.getParameter("desired_date");
             var endDate = req.getParameter("end_date");

@@ -82,6 +82,11 @@
         <servlet-name>request_book_servlet</servlet-name>
     </filter-mapping>
 
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <servlet-name>create_librarian_servlet</servlet-name>
+    </filter-mapping>
+
     <resource-ref>
         <description>postgreSQL Datasource</description>
         <res-ref-name>jdbc/postgres</res-ref-name>

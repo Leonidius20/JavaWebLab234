@@ -9,10 +9,10 @@
     <div class="container" style="display: flex; justify-content: center">
         <div class="card" style="flex-grow: 1; max-width: 400px">
             <div class="card-header">
-                Signing up
+                ${createLibrarian ? 'Creating a librarian' : 'Signing up'}
             </div>
             <div class="card-body">
-                <form action="registration" method="post">
+                <form action="${createLibrarian ? 'create-librarian' : 'registration'}" method="post">
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input id="name" name="name" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Enter name">
@@ -25,11 +25,11 @@
                         <label for="password">Password</label>
                         <input id="password" name="password" type="password" class="form-control" placeholder="Password">
                     </div>
-                    <div style="margin-top: 5px" class="form-check">
+                    <!-- <div style="margin-top: 5px" class="form-check">
                         <input type="checkbox" class="form-check-input" id="exampleCheck1">
                         <label class="form-check-label" for="exampleCheck1">I agree to terms and conditions</label>
-                    </div>
-                    <button style="margin-top: 5px" id="signup-button" type="submit" class="btn btn-primary">Sign up</button>
+                    </div> -->
+                    <button style="margin-top: 5px" id="signup-button" type="submit" class="btn btn-primary">${createLibrarian ? 'Create' : 'Sign up'}</button>
                 </form>
             </div>
         </div>

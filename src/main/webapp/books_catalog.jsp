@@ -32,7 +32,7 @@
         <th><a href="${pageContext.request.contextPath}?sortBy=author${searchParams}">Author</a></th>
         <th><a href="${pageContext.request.contextPath}?sortBy=edition${searchParams}">Edition</a></th>
         <th><a href="${pageContext.request.contextPath}?sortBy=year${searchParams}">Year</a></th>
-        <th>Number of copies</th>
+        <th>Available copies</th>
     </tr>
     </thead>
     <tbody>
@@ -61,7 +61,7 @@
             </td>
             <td>
 
-                <c:out value="${book.numberOfCopies()}" />
+                <c:out value="${book.numberOfAvailableCopies()}" />
             </td>
 
 

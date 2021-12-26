@@ -15,11 +15,11 @@ public class EditBookModelImpl {
     }
 
     public boolean editBook(int id, String name, String author, int year, int edition, int numberOfCopies) throws SQLException {
-        return dao.updateBook(new Book(id, name, year, numberOfCopies, author, edition));
+        return dao.updateBook(new Book(id, name, year, numberOfCopies, author, edition, -1));
     }
 
     public int createBook(String name, String author, int year, int edition, int numberOfCopies) throws SQLException {
-        return dao.createBook(new Book(-1, name, year, numberOfCopies, author, edition));
+        return dao.createBook(new Book(-1, name, year, numberOfCopies, author, edition, -1));
     }
 
     public Book loadBook(int id) throws SQLException {

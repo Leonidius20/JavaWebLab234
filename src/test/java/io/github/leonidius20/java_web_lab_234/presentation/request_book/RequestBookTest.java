@@ -28,7 +28,7 @@ public class RequestBookTest {
         var desiredDate = LocalDate.of(2002, 9, 28);
         var endDate = LocalDate.of(2002, 9, 29);
 
-        new RequestBookModelImpl(mockDao).requestBook(userId, bookId, borrowingString, desiredDateStr, endDateStr);
+        new RequestBookModelImpl(mockDao, null).requestBook(userId, bookId, borrowingString, desiredDateStr, endDateStr);
 
         var captor = ArgumentCaptor.forClass(BookRequest.class);
         verify(mockDao).createRequest(captor.capture());

@@ -1,6 +1,8 @@
 package io.github.leonidius20.java_web_lab_234.presentation.book_requests.request_book;
 
+import io.github.leonidius20.java_web_lab_234.dao.BookDao;
 import io.github.leonidius20.java_web_lab_234.dao.BookRequestDao;
+import io.github.leonidius20.java_web_lab_234.domain.Book;
 import io.github.leonidius20.java_web_lab_234.domain.BookRequest;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -8,9 +10,8 @@ import org.mockito.ArgumentCaptor;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 public class RequestBookTest {
 
@@ -41,6 +42,23 @@ public class RequestBookTest {
         );
 
         assertEquals(expectedRequest, actualRequest);
+    }
+
+    @Test
+    void hasAvailableBooksTest() throws SQLException {
+        var mockDao = mock(BookDao.class);
+
+        var mockBook0 = new Book(0, "", 0, 1, "", 0, 0);
+
+        var mockBook1 = new Book(0, "", 0, 2, "", 0, 1);
+
+        when(mockDao.findById(1)).thenReturn(mockBook0);
+        when(mockDao.findById(2)).thenReturn(mockBook1);
+
+        var mockModel =  new RequestBookModelImpl(null, mockDao);
+
+        assertFalse(mockModel.hasAvailableCopies(1));
+        assertTrue(mockModel.hasAvailableCopies(2));
     }
 
 }

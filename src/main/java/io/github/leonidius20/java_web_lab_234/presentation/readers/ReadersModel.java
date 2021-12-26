@@ -15,6 +15,10 @@ public class ReadersModel {
         dao = new UserWithRequestsDaoImpl(DatabaseConnection.get().getConnection());
     }
 
+    public ReadersModel(UserWithRequestsDaoImpl dao) {
+        this.dao = dao;
+    }
+
     public List<UserWithRequests> getUsers() throws SQLException {
         return dao.getUsersWithRequests();
     }

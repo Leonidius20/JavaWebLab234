@@ -16,6 +16,10 @@ public class OrdersListModelImpl {
         dao = new BookRequestDaoImpl(DatabaseConnection.get().getConnection());
     }
 
+    public OrdersListModelImpl(BookRequestDao dao) {
+        this.dao = dao;
+    }
+
     public List<BookRequest> getAllOrders() throws SQLException {
         return dao.getAll();
     }

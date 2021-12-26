@@ -16,6 +16,10 @@ public class MyAccountModelImpl {
         dao = new BookRequestDaoImpl(DatabaseConnection.get().getConnection());
     }
 
+    public MyAccountModelImpl(BookRequestDao dao) throws SQLException {
+        this.dao = dao;
+    }
+
     public List<BookRequest> getBookRequests(int userId) throws SQLException {
         return dao.getRequestsForUser(userId);
     }

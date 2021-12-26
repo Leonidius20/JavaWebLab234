@@ -17,8 +17,12 @@ public class BookDetailsServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        super.init();
-        model = new BookDetailsModelImpl();
+        try {
+            model = new BookDetailsModelImpl();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new ServletException("BookDetailsServlet: couldn't create model");
+        }
     }
 
     @Override

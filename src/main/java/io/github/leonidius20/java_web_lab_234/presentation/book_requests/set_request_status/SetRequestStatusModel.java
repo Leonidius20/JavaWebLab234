@@ -15,6 +15,10 @@ public class SetRequestStatusModel {
         dao = new BookRequestDaoImpl(DatabaseConnection.get().getConnection());
     }
 
+    public SetRequestStatusModel(BookRequestDao dao) {
+        this.dao = dao;
+    }
+
     public void setRequestStatus(int id, String statusString) throws SQLException {
         var status = BookRequest.Status.valueOf(statusString.toUpperCase());
         dao.setRequestStatus(id, status);

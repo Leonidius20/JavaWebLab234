@@ -16,6 +16,10 @@ public class UsersModel {
         dao = new UserDaoImpl(DatabaseConnection.get().getConnection());
     }
 
+    public UsersModel(UserDao dao) {
+        this.dao = dao;
+    }
+
     public List<User> getUsers() throws SQLException {
         return dao.getByRole(User.Role.USER);
     }

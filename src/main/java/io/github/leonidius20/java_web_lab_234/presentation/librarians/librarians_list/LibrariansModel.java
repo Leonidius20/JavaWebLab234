@@ -16,6 +16,10 @@ public class LibrariansModel {
         dao = new UserDaoImpl(DatabaseConnection.get().getConnection());
     }
 
+    public LibrariansModel(UserDao dao) {
+        this.dao = dao;
+    }
+
     public List<User> getLibrarians() throws SQLException {
         return dao.getByRole(User.Role.LIBRARIAN);
     }

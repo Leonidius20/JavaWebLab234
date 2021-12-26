@@ -1,8 +1,7 @@
-package io.github.leonidius20.java_web_lab_234.presentation.login;
+package io.github.leonidius20.java_web_lab_234.presentation.auth.login;
 
 import io.github.leonidius20.java_web_lab_234.dao.UserDao;
 import io.github.leonidius20.java_web_lab_234.domain.User;
-import io.github.leonidius20.java_web_lab_234.presentation.auth.login.LoginModelImpl;
 import io.github.leonidius20.java_web_lab_234.utils.Cryptography;
 import org.junit.jupiter.api.Test;
 

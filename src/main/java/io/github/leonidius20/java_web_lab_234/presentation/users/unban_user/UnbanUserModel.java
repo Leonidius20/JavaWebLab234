@@ -14,6 +14,10 @@ public class UnbanUserModel {
         dao = new UserDaoImpl(DatabaseConnection.get().getConnection());
     }
 
+    public UnbanUserModel(UserDao dao) {
+        this.dao = dao;
+    }
+
     public void unbanUser(int id) throws SQLException {
         dao.setUserBanned(id, false);
     }

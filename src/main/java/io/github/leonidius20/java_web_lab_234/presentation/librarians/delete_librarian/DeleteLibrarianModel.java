@@ -14,6 +14,10 @@ public class DeleteLibrarianModel {
         this.dao = new UserDaoImpl(DatabaseConnection.get().getConnection());
     }
 
+    public DeleteLibrarianModel(UserDao dao) throws SQLException {
+        this.dao = dao;
+    }
+
     public void deleteLibrarian(int id) throws SQLException {
         dao.deleteUser(id);
     }

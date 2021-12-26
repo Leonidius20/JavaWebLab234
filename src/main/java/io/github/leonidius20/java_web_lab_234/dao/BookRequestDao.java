@@ -7,12 +7,16 @@ import java.util.List;
 
 public interface BookRequestDao {
 
-    public List<BookRequest> getRequestsForUser(int userId) throws SQLException;
+    List<BookRequest> getAll() throws SQLException;
 
-    public int createRequest(BookRequest request) throws SQLException;
+    List<BookRequest> getRequestsForUser(int userId) throws SQLException;
 
-    public boolean requestExists(int userId, int bookId) throws SQLException;
+    int createRequest(BookRequest request) throws SQLException;
 
-    public void closeRequest(int requestId) throws SQLException;
+    boolean requestExists(int userId, int bookId) throws SQLException;
+
+    void setRequestStatus(int requestId, BookRequest.Status status) throws SQLException;
+
+    void deleteRequest(int requestId) throws SQLException;
 
 }

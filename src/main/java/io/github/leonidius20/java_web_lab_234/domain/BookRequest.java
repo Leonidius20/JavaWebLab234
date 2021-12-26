@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public record BookRequest(
         int id, int userId, int bookId, String bookName,
-        BorrowingType borrowingType, LocalDate desiredDate, LocalDate endDate, Status status
+        BorrowingType borrowingType, LocalDate desiredDate, LocalDate endDate, Status status, String userName
 ) {
 
     public enum BorrowingType {

@@ -37,7 +37,7 @@ public class RequestBookTest {
         var actualRequest = captor.getValue();
 
         var expectedRequest = new BookRequest(
-                -1, userId, bookId, "", borrowing, desiredDate, endDate, BookRequest.Status.PENDING
+                -1, userId, bookId, "", borrowing, desiredDate, endDate, BookRequest.Status.PENDING, ""
         );
 
         assertEquals(expectedRequest, actualRequest);

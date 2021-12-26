@@ -16,6 +16,14 @@
                         <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/users">Users</a>
                     </li>
                 </c:if>
+                <c:if test="${sessionScope.user != null && sessionScope.user.role() == 'LIBRARIAN' }">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/orders">Book requests</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/readers">Readers</a>
+                    </li>
+                </c:if>
                 <!--<li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#">Home</a>
                 </li>-->

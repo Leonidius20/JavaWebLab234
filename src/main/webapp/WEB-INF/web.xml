@@ -57,6 +57,17 @@
         </init-param>
     </filter>
 
+    <filter>
+        <filter-name>LibrarianFilter</filter-name>
+        <filter-class>
+            io.github.leonidius20.java_web_lab_234.presentation.AuthFilter
+        </filter-class>
+        <init-param>
+            <param-name>level</param-name>
+            <param-value>librarian</param-value>
+        </init-param>
+    </filter>
+
     <filter-mapping>
         <filter-name>AuthFilter</filter-name>
         <servlet-name>my_account_servlet</servlet-name>
@@ -109,6 +120,11 @@
     <filter-mapping>
         <filter-name>AdminFilter</filter-name>
         <servlet-name>unban_user_servlet</servlet-name>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>LibrarianFilter</filter-name>
+        <servlet-name>orders_list_servlet</servlet-name>
     </filter-mapping>
 
     <resource-ref>

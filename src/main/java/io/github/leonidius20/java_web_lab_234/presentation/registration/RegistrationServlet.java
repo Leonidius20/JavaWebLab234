@@ -9,6 +9,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @WebServlet(name = "registration_servlet", value = "/registration")
 public class RegistrationServlet extends HttpServlet {
@@ -58,8 +60,13 @@ public class RegistrationServlet extends HttpServlet {
                 return;
             }
 
-            if (!role.equalsIgnoreCase("librarian"))
+            if (!role.equalsIgnoreCase("librarian")) {
                 req.getSession(true).setAttribute("user", user);
+                Logger.getLogger("Registration").log(Level.INFO, "User " + name + " just registered");
+            } else {
+                Logger.getLogger("Registration").log(Level.INFO, "Librarian " + name + " was just created");
+            }
+
             resp.sendRedirect(req.getContextPath());
         } catch (SQLException | NoSuchAlgorithmException e) {
             resp.setStatus(500);

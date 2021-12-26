@@ -8,6 +8,11 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <c:if test="${sessionScope.user != null && sessionScope.user.role() == 'ADMIN' }">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/librarians">Librarians</a>
+                    </li>
+                </c:if>
                 <!--<li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#">Home</a>
                 </li>-->

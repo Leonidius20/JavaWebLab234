@@ -86,6 +86,15 @@
         <filter-name>AdminFilter</filter-name>
         <servlet-name>create_librarian_servlet</servlet-name>
     </filter-mapping>
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <servlet-name>librarians_servlet</servlet-name>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <servlet-name>delete_librarian_servlet</servlet-name>
+    </filter-mapping>
 
     <resource-ref>
         <description>postgreSQL Datasource</description>

@@ -12,6 +12,9 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/librarians">Librarians</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/users">Users</a>
+                    </li>
                 </c:if>
                 <!--<li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#">Home</a>

@@ -16,6 +16,7 @@ public class UserDaoImpl extends BaseDao<User> implements UserDao {
     private static final String GET_USER_BY_NAME = "select * from users join user_roles on users.role = user_roles.role_id where name = ?";
     private static final String GET_USERS_BY_ROLE = "select * from users join user_roles on users.role = user_roles.role_id where upper(role_name) = upper(?)";
     private static final String DELETE_BY_ID = "delete from users where id = ?";
+    private static final String UPDATE_BANNED = "update users set is_banned = ? where id = ?";
 
     public UserDaoImpl(Connection connection) {
         this.connection = connection;
@@ -98,12 +99,12 @@ public class UserDaoImpl extends BaseDao<User> implements UserDao {
         );
     }
 
-    public void banUser(int id) {
-
-    }
-
-    public void unbanUser(int id) {
-
+    @Override
+    public void setUserBanned(int id, boolean banned) throws SQLException {
+        var statement = connection.prepareStatement(UPDATE_BANNED);
+        statement.setBoolean(1, banned);
+        statement.setInt(2, id);
+        statement.executeUpdate();
     }
 
     @Override
@@ -112,4 +113,5 @@ public class UserDaoImpl extends BaseDao<User> implements UserDao {
         statement.setInt(1, id);
         statement.executeUpdate();
     }
+
 }

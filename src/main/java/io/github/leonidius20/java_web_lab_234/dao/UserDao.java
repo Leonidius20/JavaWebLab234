@@ -13,9 +13,7 @@ public interface UserDao {
 
     List<User> getByRole(User.Role role) throws SQLException;
 
-    void banUser(int id) throws SQLException;
-
-    void unbanUser(int id) throws SQLException;
+    void setUserBanned(int id, boolean banned) throws SQLException;
 
     void deleteUser(int id) throws SQLException;
 

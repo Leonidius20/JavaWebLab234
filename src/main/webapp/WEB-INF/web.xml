@@ -96,6 +96,21 @@
         <servlet-name>delete_librarian_servlet</servlet-name>
     </filter-mapping>
 
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <servlet-name>users_servlet</servlet-name>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <servlet-name>ban_user_servlet</servlet-name>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <servlet-name>unban_user_servlet</servlet-name>
+    </filter-mapping>
+
     <resource-ref>
         <description>postgreSQL Datasource</description>
         <res-ref-name>jdbc/postgres</res-ref-name>

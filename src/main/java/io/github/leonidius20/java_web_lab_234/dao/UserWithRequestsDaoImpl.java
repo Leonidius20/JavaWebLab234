@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-public class UserWithRequestsDaoImpl extends BaseDao<UserWithRequests> {
+public class UserWithRequestsDaoImpl extends BaseDao<UserWithRequests> implements UserWithRequestsDao {
 
     private final UserDao userDao;
     private final BookRequestDao bookRequestDao;

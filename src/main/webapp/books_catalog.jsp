@@ -9,13 +9,29 @@
 
 <%@include file="page_header.jsp"%>
 
+<div class="container" style="padding: 5px">
+    <form action="${pageContext.request.contextPath}/" method="get">
+        <div class="input-group">
+            <input class="form-control" type="text" name="q" id="q" placeholder="Search..." autocomplete="off">
+            <div class="input-group-append">
+                <select id="search_by" name="search_by" class="custom-select">
+                    <option value="AUTHOR_OR_NAME">by name or author</option>
+                    <option value="NAME">by name</option>
+                    <option value="AUTHOR">by author</option>
+                </select>
+                <button id="submit-button" type="submit" class="btn btn-primary">Go</button>
+            </div>
+        </div>
+    </form>
+
 <table class="table table-bordered">
     <thead>
     <tr>
-        <th><a href="${pageContext.request.contextPath}?sortBy=name">Name</a></th>
-        <th><a href="${pageContext.request.contextPath}?sortBy=author">Author</a></th>
-        <th><a href="${pageContext.request.contextPath}?sortBy=edition">Edition</a></th>
-        <th><a href="${pageContext.request.contextPath}?sortBy=year">Year</a></th>
+        <c:set var="searchParams" value="${empty param.q ? '' : '&q='.concat(param.q).concat('&search_by=').concat(param.search_by) }"/>
+        <th><a href="${pageContext.request.contextPath}?sortBy=name${searchParams}">Name</a></th>
+        <th><a href="${pageContext.request.contextPath}?sortBy=author${searchParams}">Author</a></th>
+        <th><a href="${pageContext.request.contextPath}?sortBy=edition${searchParams}">Edition</a></th>
+        <th><a href="${pageContext.request.contextPath}?sortBy=year${searchParams}">Year</a></th>
         <th>Number of copies</th>
     </tr>
     </thead>
@@ -55,5 +71,6 @@
     </tbody>
 
 </table>
+</div>
 </body>
 </html>

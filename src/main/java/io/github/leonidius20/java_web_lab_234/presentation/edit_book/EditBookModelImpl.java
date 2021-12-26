@@ -1,6 +1,6 @@
 package io.github.leonidius20.java_web_lab_234.presentation.edit_book;
 
-import io.github.leonidius20.java_web_lab_234.dao.BookDao;
+import io.github.leonidius20.java_web_lab_234.dao.BookDaoImpl;
 import io.github.leonidius20.java_web_lab_234.data.DatabaseConnection;
 import io.github.leonidius20.java_web_lab_234.domain.Book;
 
@@ -8,10 +8,10 @@ import java.sql.SQLException;
 
 public class EditBookModelImpl {
 
-    private final BookDao dao;
+    private final BookDaoImpl dao;
 
     public EditBookModelImpl() throws SQLException {
-        this.dao = new BookDao(DatabaseConnection.get().getConnection());
+        this.dao = new BookDaoImpl(DatabaseConnection.get().getConnection());
     }
 
     public boolean editBook(int id, String name, String author, int year, int edition, int numberOfCopies) throws SQLException {

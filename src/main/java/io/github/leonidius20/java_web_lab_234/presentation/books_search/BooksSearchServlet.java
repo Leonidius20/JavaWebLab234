@@ -1,14 +1,16 @@
 package io.github.leonidius20.java_web_lab_234.presentation.books_search;
 
-import java.io.*;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
-
+import io.github.leonidius20.java_web_lab_234.domain.Book;
+import io.github.leonidius20.java_web_lab_234.utils.ErrorPage;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.*;
-import jakarta.servlet.annotation.*;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
 
 // servlet is a controller in mvc terms
 @WebServlet(name = "helloServlet", value = "/")
@@ -18,27 +20,37 @@ public class BooksSearchServlet extends HttpServlet {
 
     public BooksSearchServlet() {}
 
-    public void init() {
-        model = new BooksSearchModelImpl();
+    @Override
+    public void init() throws ServletException {
+        try {
+            model = new BooksSearchModelImpl();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new ServletException("BooksSearchServlet: Could not create model");
+        }
     }
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         try {
             String sortBy = "name";
             if (request.getParameterMap().containsKey("sortBy")) {
                 sortBy = request.getParameter("sortBy");
             }
-            var books = model.getAll(sortBy);
+
+            List<Book> books;
+            if (request.getParameterMap().containsKey("q")) {
+                var query = request.getParameter("q");
+                var searchBy = request.getParameter("search_by");
+                books = model.getByQuery(query, searchBy, sortBy);
+            } else books = model.getAll(sortBy);
+
             request.setAttribute("books", books);
             getServletContext().getRequestDispatcher("/books_catalog.jsp").forward(request, response);
         } catch (SQLException | ServletException e) {
             e.printStackTrace();
-            response.sendRedirect("/error.jsp");
+            ErrorPage.show("Error", 500, request, response, getServletContext());
         }
-    }
-
-    public void destroy() {
-        model.close();
     }
 
 }

@@ -1,6 +1,7 @@
 package io.github.leonidius20.java_web_lab_234.presentation.book_details;
 
 import io.github.leonidius20.java_web_lab_234.dao.BookDao;
+import io.github.leonidius20.java_web_lab_234.dao.BookRequestDaoImpl;
 import io.github.leonidius20.java_web_lab_234.data.DatabaseConnection;
 import io.github.leonidius20.java_web_lab_234.domain.Book;
 
@@ -14,6 +15,11 @@ public class BookDetailsModelImpl {
     public Book getById(int id) throws SQLException {
         BookDao dao = new BookDao(connection.getConnection());
         return dao.findById(id);
+    }
+
+    public boolean checkIfBookRequested(int userId, int bookId) throws SQLException {
+        var dao = new BookRequestDaoImpl(connection.getConnection());
+        return dao.requestExists(userId, bookId);
     }
 
 }

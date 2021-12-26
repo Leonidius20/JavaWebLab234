@@ -1,5 +1,6 @@
 package io.github.leonidius20.java_web_lab_234.presentation.book_details;
 
+import io.github.leonidius20.java_web_lab_234.domain.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -26,6 +27,12 @@ public class BookDetailsServlet extends HttpServlet {
         try {
             var book = model.getById(id);
             req.setAttribute("book", book);
+
+            var user = req.getSession().getAttribute("user");
+            if (user != null) {
+                req.setAttribute("book_requested", model.checkIfBookRequested(((User)user).id(), id));
+            }
+
             getServletContext().getRequestDispatcher("/jsp/book_details.jsp").forward(req, resp);
         } catch (SQLException e) {
             e.printStackTrace();

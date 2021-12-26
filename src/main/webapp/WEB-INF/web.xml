@@ -46,6 +46,17 @@
         </init-param>
     </filter>
 
+    <filter>
+        <filter-name>UserFilter</filter-name>
+        <filter-class>
+            io.github.leonidius20.java_web_lab_234.presentation.AuthFilter
+        </filter-class>
+        <init-param>
+            <param-name>level</param-name>
+            <param-value>user</param-value>
+        </init-param>
+    </filter>
+
     <filter-mapping>
         <filter-name>AuthFilter</filter-name>
         <servlet-name>my_account_servlet</servlet-name>
@@ -64,6 +75,11 @@
     <filter-mapping>
         <filter-name>AdminFilter</filter-name>
         <servlet-name>edit_book_servlet</servlet-name>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>UserFilter</filter-name>
+        <servlet-name>request_book_servlet</servlet-name>
     </filter-mapping>
 
     <resource-ref>

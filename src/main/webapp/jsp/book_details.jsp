@@ -19,6 +19,10 @@
             <a href="${pageContext.request.contextPath}/edit-book?id=${book.id()}" id="edit-book" class="btn btn-primary" role="button">Edit book</a>
             <a href="${pageContext.request.contextPath}/delete-book?id=${book.id()}" id="delete-book" class="btn btn-danger" role="button">Delete book</a>
         </c:if>
+
+        <c:if test="${ sessionScope.user != null && sessionScope.user.role() == 'USER' && !book_requested }">
+            <a href="${pageContext.request.contextPath}/request-book?id=${book.id()}" id="request-book" class="btn btn-primary" role="button">Request book</a>
+        </c:if>
     </div>
 
 </body>

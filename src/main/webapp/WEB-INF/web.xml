@@ -15,8 +15,8 @@
     <!--<servlet>
         <servlet-name>Hello</servlet-name>
 
-        <display-name>io.github.leonidius20.java_web_lab_234.presentation.books_search.BooksSearchServlet</display-name>
-        <servlet-class>io.github.leonidius20.java_web_lab_234.presentation.books_search.BooksSearchServlet</servlet-class>
+        <display-name>BooksSearchServlet</display-name>
+        <servlet-class>BooksSearchServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -125,6 +125,10 @@
     <filter-mapping>
         <filter-name>LibrarianFilter</filter-name>
         <servlet-name>orders_list_servlet</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>LibrarianFilter</filter-name>
+        <servlet-name>set_request_status_servlet</servlet-name>
     </filter-mapping>
 
     <resource-ref>

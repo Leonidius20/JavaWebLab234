@@ -39,6 +39,7 @@
 
         <form action="${pageContext.request.contextPath}/set-request-status" method="get">
           <div class="input-group">
+            <input type="number" name="id" value="${order.id()}" hidden/>
             <div class="input-group-append">
               <select id="status" name="status" class="custom-select">
                 <option value="PENDING" ${order.status() == 'PENDING' ? 'selected' : ''}>Pending</option>

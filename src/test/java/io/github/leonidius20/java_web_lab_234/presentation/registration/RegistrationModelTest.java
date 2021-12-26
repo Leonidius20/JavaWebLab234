@@ -2,6 +2,7 @@ package io.github.leonidius20.java_web_lab_234.presentation.registration;
 
 import io.github.leonidius20.java_web_lab_234.dao.UserDao;
 import io.github.leonidius20.java_web_lab_234.domain.User;
+import io.github.leonidius20.java_web_lab_234.presentation.auth.registration.RegistrationModelImpl;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 

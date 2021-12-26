@@ -88,7 +88,12 @@ public class BookRequestDaoImpl extends BaseDao<BookRequest> implements BookRequ
     }
 
     private BookRequest requestFromResultSet(ResultSet resultSet) throws SQLException {
-        var userName =  resultSet.getString("username");
+        var userName = "null";
+        try {
+            userName =  resultSet.getString("username");
+        } catch (SQLException e) {
+            // column does not exist
+        }
         return new BookRequest(
                 resultSet.getInt("request_id"),
                 resultSet.getInt("user_id"),

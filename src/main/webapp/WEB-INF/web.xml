@@ -130,6 +130,10 @@
         <filter-name>LibrarianFilter</filter-name>
         <servlet-name>set_request_status_servlet</servlet-name>
     </filter-mapping>
+    <filter-mapping>
+        <filter-name>LibrarianFilter</filter-name>
+        <servlet-name>readers_servlet</servlet-name>
+    </filter-mapping>
 
     <resource-ref>
         <description>postgreSQL Datasource</description>

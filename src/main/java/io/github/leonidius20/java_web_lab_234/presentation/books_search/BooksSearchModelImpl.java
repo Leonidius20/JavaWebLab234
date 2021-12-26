@@ -5,7 +5,6 @@ import io.github.leonidius20.java_web_lab_234.dao.BookDaoImpl;
 import io.github.leonidius20.java_web_lab_234.data.DatabaseConnection;
 import io.github.leonidius20.java_web_lab_234.domain.Book;
 
-import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -19,17 +18,23 @@ public class BooksSearchModelImpl {
 
     public BooksSearchModelImpl(BookDao dao) { this.dao = dao; }
 
-    private final DataSource connection = DatabaseConnection.get();
-
     public List<Book> getAll(String orderByString) throws SQLException {
-        var orderBy = BookDaoImpl.OrderBy.valueOf(orderByString.toUpperCase());
+        var orderBy = orderByFromString(orderByString);
         return dao.findAll(orderBy);
     }
 
     public List<Book> getByQuery(String query, String searchByStr, String orderByStr) throws SQLException {
-        var orderBy = BookDaoImpl.OrderBy.valueOf(orderByStr.toUpperCase());
-        var searchBy = BookDaoImpl.FindBy.valueOf(searchByStr.toUpperCase());
+        var orderBy = orderByFromString(orderByStr);
+        var searchBy = findByFromString(searchByStr);
         return dao.findByQuery(query, searchBy, orderBy);
+    }
+
+    private BookDao.OrderBy orderByFromString(String str) {
+        return BookDao.OrderBy.valueOf(str.toUpperCase());
+    }
+
+    private BookDao.FindBy findByFromString(String str) {
+        return BookDao.FindBy.valueOf(str.toUpperCase());
     }
 
 }

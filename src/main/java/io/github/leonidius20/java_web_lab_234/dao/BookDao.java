@@ -19,4 +19,38 @@ public interface BookDao {
 
     int createBook(Book book) throws SQLException;
 
+    public enum OrderBy  {
+
+        NAME(" order by name"),
+        AUTHOR(" order by author_name"),
+        EDITION(" order by edition"),
+        YEAR(" order by year");
+
+        private final String sqlOrderBy;
+
+        OrderBy(String sqlOrderBy) {
+            this.sqlOrderBy = sqlOrderBy;
+        }
+
+        public String getSqlOrderBy() {
+            return sqlOrderBy;
+        }
+    }
+
+    public enum FindBy {
+
+        AUTHOR_OR_NAME("select * from books where upper(name) like upper(?) or upper(author_name) like upper(?)"),
+        AUTHOR("select * from books where upper(author_name) like upper(?)"),
+        NAME("select * from books where upper(name) like upper(?)");
+
+        private final String sql;
+
+        FindBy(String sql) { this.sql = sql; }
+
+        public String getSql() {
+            return sql;
+        }
+
+    }
+
 }

@@ -29,7 +29,7 @@ public class RequestBookModelImpl {
         var endDate = Date.valueOf(endDateStr);
 
         dao.createRequest(new BookRequest(
-                -1, userId, bookId, borrowingType, desiredDate, endDate, BookRequest.Status.PENDING
+                -1, userId, bookId, "", borrowingType, desiredDate, endDate, BookRequest.Status.PENDING
         ));
     }
 

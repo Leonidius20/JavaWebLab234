@@ -3,7 +3,7 @@ package io.github.leonidius20.java_web_lab_234.domain;
 import java.sql.Date;
 
 public record BookRequest(
-        int id, int userId, int bookId,
+        int id, int userId, int bookId, String bookName,
         BorrowingType borrowingType, Date desiredDate, Date endDate, Status status
 ) {
 
@@ -32,12 +32,8 @@ public record BookRequest(
             };
         }
 
-        public static BorrowingType fromString(String name) {
-
-            if (name.equals(TAKE_HOME.name)) return TAKE_HOME;
-            if (name.equals(READ_AT_LIBRARY.name)) return READ_AT_LIBRARY;
-
-            return null;
+        public String getName() {
+            return name;
         }
     }
 

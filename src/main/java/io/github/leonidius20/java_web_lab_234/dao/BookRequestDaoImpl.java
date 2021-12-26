@@ -14,11 +14,11 @@ public class BookRequestDaoImpl extends BaseDao<BookRequest> implements BookRequ
             "insert into book_requests(user_id, book, borrowing_type, desired_date, end_date, status) values(?, ?, ?, ?, ?, ?)";
 
     private static final String SELECT_FOR_USER =
-            "select * from book_requests where user_id = ?";
+            "select * from book_requests join books on book_requests.book = books.id where user_id = ?";
 
     private static final String EXISTS = "select exists(select 1 from book_requests where user_id = ? and book = ?) as \"exists\"";
 
-    private static final String DELETE = "delete from book_requests where id = ?";
+    private static final String DELETE = "delete from book_requests where request_id = ?";
 
     public BookRequestDaoImpl(Connection connection) {
         this.connection = connection;
@@ -33,9 +33,10 @@ public class BookRequestDaoImpl extends BaseDao<BookRequest> implements BookRequ
 
         while (resultSet.next()) {
             var request = new BookRequest(
-                    resultSet.getInt("id"),
+                    resultSet.getInt("request_id"),
                     resultSet.getInt("user_id"),
                     resultSet.getInt("book"),
+                    resultSet.getString("name"),
                     BookRequest.BorrowingType.fromId(resultSet.getInt("borrowing_type")),
                     resultSet.getDate("desired_date"),
                     resultSet.getDate("end_date"),

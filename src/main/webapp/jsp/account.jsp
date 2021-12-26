@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.concurrent.TimeUnit" %>
+<jsp:useBean id="now" class="java.util.Date" />
 <html>
 <head>
     <title>My account</title>
@@ -19,20 +21,42 @@
                 <p>Role: ${sessionScope.user.role().toString() }</p>
             </div>
         </div>
-        <div class="card" style="flex-grow: 1; max-width: 400px; padding: 5px">
-            <div class="card-header">
-                Your books
-            </div>
-            <div class="card-body">
-                <!--<p>Username: User</p>
-                <div style="display: flex; justify-content: space-between">
-                    <p>Email: Email</p>
-                    <button id="change-emrail" class="btn btn-primary">Change</button>
+        <c:if test="${sessionScope.user.role() == 'USER'}">
+            <div class="card" style="flex-grow: 1; max-width: 400px; padding: 5px">
+                <div class="card-header">
+                    Your books and requests
                 </div>
-                <p>Premium expiry date: rr</p>
-                <button id="delete-accounrt" class="btn btn-danger">Delete account</button> -->
+                <div class="card-body">
+                    <c:forEach var="request" items="${ requests }">
+                        <div class="card-body">
+                            Book: <a href="${pageContext.request.contextPath}/book?id=${request.bookId()}">${request.bookName()}</a><br>
+                            Request type: ${request.borrowingType().getName()}<br>
+                            Start date: ${request.desiredDate()}<br>
+                            End date: ${request.endDate()}<br>
+                            Status: ${request.status()}<br>
+                            <c:if test="${request.status() == 'TAKEN'}">
+                                <c:set var="days_remaining" value="${TimeUnit.DAYS.convert(request.endDate().getTime() - now.getTime(), TimeUnit.MILLISECONDS)}"/>
+                                <c:if test="${days_remaining >= 0}">
+                                    Days remaining: ${days_remaining}<br>
+                                </c:if>
+                                <c:if test="${days_remaining < 0}">
+                                    Days past the deadline: ${-days_remaining}<br>
+                                    Fine: ${-days_remaining * 10}&#8372;
+                                </c:if>
+                            </c:if>
+                        </div>
+                    </c:forEach>
+                    <!--<p>Username: User</p>
+                    <div style="display: flex; justify-content: space-between">
+                        <p>Email: Email</p>
+                        <button id="change-emrail" class="btn btn-primary">Change</button>
+                    </div>
+                    <p>Premium expiry date: rr</p>
+                    <button id="delete-accounrt" class="btn btn-danger">Delete account</button> -->
+                </div>
             </div>
-        </div>
+        </c:if>
+
     </div>
 </body>
 </html>
